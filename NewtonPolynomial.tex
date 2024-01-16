@@ -54,3 +54,58 @@ Applying the Aitken-Neville formula, we receive for $k=0,1,\ldots,n$:
 \makebox[\columnwidth]{\includegraphics[width=0.6\columnwidth]{images/aitken-neville}}
 
 \makebox[\columnwidth]{\includegraphics[width=0.6\columnwidth]{images/divided-differences}}
+
+from which (in this special example above) we can derive the collocation polynomial
+\begin{align*}
+	y(x)=p(x)=1+0\cdot\pi_1(x)+0.5\cdot\pi_2(x)-\frac{1}{12}\pi_3(x)
+\end{align*}
+
+\subsubsection{Error Formula}
+
+With the ``real'', physical (usually unknown) function $y=f(x)$ interpolated by $p(x)$ and some intermediate value $\xi$:
+\begin{align*}
+	\varepsilon = y(x)-p(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}\pi_{n+1}(x)\ \left[\xi\in \left(\min(x_k),\max(x_k)\right)\right]
+\end{align*}
+
+With large values of $n$, this leads to the \emph{Runge phenomenon} (oscillation of errors towards the boundaries of arguments range),
+mainly because one can interpret divided differences as derivations.
+
+\subsubsection{Chebyshev Arguments for the Runge Phenomenon}
+
+Choosing the Chebyshev arguments
+
+\begin{align*}
+	x_k = \cos\left( \frac{2k+1}{2(n+1)}\pi \right)\ (k=0,1,\ldots,n)
+\end{align*}
+
+in the interval $[-1,1]$ minimises the maximum amplitude to $2^{-n}$:
+
+\begin{align*}
+	\min_{\{x_0,x_1,\ldots,x_n\}}\max_{-1\leq x \leq 1} \left|\pi_{n+1}(x)\right| \leq \frac{1}{2^n}
+\end{align*}
+
+We therefore need the affine formula $x\rightarrowtail a+\frac{b-a}{2}(x+1)$
+to transform the interval $[-1,1]$ into $[a,b]$ in which our measurement x-values reside.
+Downsides: Expense of increased measurements at edges of interval.
+Also, increasing the number of $n$ (meas. minus 1) implies that nearly all arguments and Newton basis polynomials change.
+
+\subsubsection{Uniformly distributed arguments}
+
+For uniformly distributed arguments, where $h$ is the step size ($x_k = x_0 + kh$),
+the polynomial $p$ is given by
+\begin{align*}
+	p(x) = \sum_{k=0}^n \frac{\Delta^k y_0}{h^kk!}\pi_k(x)
+\end{align*}
+
+with $\Delta$ as difference operator $\Delta y_k=y_{k+1} - y_k$ 
+and $\Delta^m$ for the composition (e.g. $\Delta^2 = \Delta y_1 - \Delta y_0 = (y_2-y_1) - (y_1-y_0)$).
+
+\subsubsection{Taylor-Approximation}
+
+With a model function $y=f(x)$ with continuous derivatives up to order $n$ on interval $[x_0,x]$:
+\begin{align*}
+	p(x) & = y_0 + \frac{y'(x_0)}{1!}(x-x_0) + \frac{y''(x_0)}{2!}(x-x_0)^2 + \\
+	\ & \ldots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n {\color{blue} \underbrace{+ \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}}_{\text{Lagrange error term}}}
+\end{align*}
+
+
