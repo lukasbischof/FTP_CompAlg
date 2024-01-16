@@ -9,6 +9,8 @@
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{cancel}
+\usepackage{xcolor}
+\usepackage{framed}
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
 { \geometry{top=.3in,left=.3in,right=.3in,bottom=.3in} }
@@ -37,6 +39,9 @@
 \setlength{\parskip}{0pt plus 0.5ex}
 \setlength{\mathindent}{0pt}
 \setlength{\columnseprule}{0.2pt}
+
+\definecolor{shadecolor}{RGB}{200,240,240}
+
 % -----------------------------------------------------------------------
 
 \title{Numerical Analysis and Computer Algebra}
@@ -46,7 +51,7 @@
     \footnotesize
 
     \begin{center}
-        \textbf{Partial Differential Equations} \\
+        \textbf{Numerical Analysis and Computer Algebra} \\
     \end{center}
     \begin{multicols}{3}
         \setlength{\premulticols}{1pt}
@@ -55,6 +60,10 @@
         \setlength{\columnsep}{2pt}
 
         \input{NewtonPolynomial}
+
+        \hspace{1cm}
+		\hrule
+
         \newpage
         \input{CheatSheet}
     \end{multicols}
