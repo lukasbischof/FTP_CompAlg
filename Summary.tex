@@ -43,6 +43,8 @@
 \definecolor{shadecolor}{RGB}{200,240,240}
 \definecolor{purple}{RGB}{128,0,128}
 
+\def\hrulefill{\leavevmode\leaders\hrule height 0.2pt \hfill\kern0pt\relax} 
+
 % -----------------------------------------------------------------------
 
 \title{Numerical Analysis and Computer Algebra}
@@ -61,9 +63,14 @@
         \setlength{\columnsep}{2pt}
 
         \input{NewtonPolynomial}
-
-        \hspace{1cm}
-		\hrule
+        \\
+		\hrulefill
+		\hspace{.5cm}
+		
+		\input{HermiteInterpolation}
+		\\
+		\hrulefill
+		\hspace{.5cm}
 
         \newpage
         \input{CheatSheet}
