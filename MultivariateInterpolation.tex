@@ -1,0 +1,32 @@
+\section{Multivariate Polynomial Interpolation}
+\subsection{Bilinear Interpolation}
+
+E.g. we want to interpolate color between four pixels.
+We get the four basis functions $\{\pi_0(x), \pi_1(x)\} \times \{\pi_0(y), \pi_1(y)\}$
+represented by a 2-fold tensor product:
+\begin{align*}
+	\overbrace{
+		\left.
+		\begin{bmatrix}
+			1\cdot 1 & (x-x_0) \\
+			1\cdot (y-y_0) & (x-x_0)(y-y_0)
+		\end{bmatrix}
+		\right\}
+	}^{\begin{matrix}
+		\pi_0(x) & & & & \pi_1(x)
+	\end{matrix}}
+	\begin{matrix}
+		\pi_0(y) \\
+		\pi_1(y)
+	\end{matrix}
+\end{align*}
+
+and the polynomial
+\begin{align*}
+	p(x,y) = &\ a_{0,0}\pi_0(x)\pi_0(y)
+	+ a_{1,0}\pi_1(x)\pi_0(y) \\
+	\ & + a_{0,1}\pi_0(x)\pi_1(y)
+	+ a_{1,1}\pi_1(x)\pi_1(y)
+\end{align*}
+
+TODO
