@@ -130,3 +130,85 @@ and finally $d_{n-1}$ from (\ref{spline-dn}).
     & {\color{gray} x\in [x_0,x_n], H = \max_{i=0,\ldots,n-1}h_i}
 \end{align*}
 
+\subsection{Bernstein-B\'ezier Splines}
+
+The basis functions for B\'ezier splines are the Bernstein polynomials:
+\begin{snugshade*}
+	\begin{align*}
+		B_{i,n}(t) = \binom{n}{i}(1-t)^{n-i}t^i\ \ \ t\in[0,1]\ (i=0,1,\ldots,n)
+	\end{align*}
+\end{snugshade*}
+
+by an affine transformation into the interval $[a,b]$ we get the transformed Bernstein polynomials:
+\begin{align*}
+	B_{i,n}(u,a,b) = B_{i,n}\left(\frac{u-a}{b-a}\right) 
+	= \frac{1}{(b-a)^n}\binom{n}{i}(b-u)^{n-i}(u-a)^i
+\end{align*}
+The polynomials have the following properties:
+\begin{enumerate}
+	\item They form a linear basis for the polynomials of order $n$
+	\item $B_{i,n}(t)$ has exactly one maximum at $t = i\div n$
+	\item $B_{i,n}(t)$ has a zero at 0 of order $i$ and a zero at 1 of order $n-i$
+	\item Symmetry: $B_{i,n}(t) = B_{n-i,n}(1 - t)$
+	\item They are a partition of unity: $\sum_{i=0}^n B_{i,n}(t) = 1$
+\end{enumerate}
+
+\paragraph{Bezier curves}
+Using a set of $d$-dimensional control points (vectors) $\vec{P_0}, \vec{P_1}, \ldots, \vec{P_n}$ ($n\geq 2$) in $\mathbb{R}^d$:
+\begin{snugshade*}
+	\begin{align*}
+		\vec{r}(t) = \sum_{i=0}^n \vec{P_i}B_{i,n}(t)\ \ \ t\in[0,1]
+	\end{align*}
+\end{snugshade*}
+The B\'ezier curve lies in the convex hull of its points:
+$\{x\in R^{d}\mid x=\sum_{i=0}^{n}\lambda_{i}{\vec{P}}_{i}\wedge\sum_{i=0}^{n}\lambda_{i}=1\wedge 0\leq\lambda_{i}\leq1\}$
+and has the following properites:
+\begin{enumerate}
+	\item The curve starts at point $\vec{P_0}$ and ends at point $\vec{P_n}$
+	\item $\vec{r^{\prime}}(0) = n(\vec{P}_{1}-\vec{P}_{0}), \quad\vec{r^{\prime}}(1)=n(\vec{P}_{n}-\vec{P}_{n-1})$
+	\item{
+		$\vec{r^{''}}(0) = n(n-1)(\vec{P}_{2}-2\vec{P}_{1}+\vec{P}_{0})$,
+		$\vec{r^{''}}(1)=n(n-1)(\vec{P}_{n}-2\vec{P}_{n-1}+\vec{P}_{n-2})$
+		meaning that if we want to stop with no velocity, the last two points have to be the same
+	}
+	\item{
+		$\frac{d}{d t^{k}}\vec{r}(0) = n(n-1)\cdots(n-k+1)\Delta^{k}\vec{P}_{0}$,
+		$\frac{d}{d t^{k}}\vec{r}(1)=n(n-1)\cdots(n-k+1)\Delta^{k}\vec{P}_{n-k}$
+	}
+\end{enumerate}
+
+\subsection{Casteljau Recursive Formula}
+We can construct a B\'ezier curve similar to Aitken-Neville as a convex linear combination of points of lower order B\'ezier curves:
+\begin{align*}
+	\vec{r}_{\vec{p}_{0},\vec{p}_{1}\ldots\vec{p}_{n}}(t)
+	= (1-t)\vec{r}_{\vec{p}_{0},\vec{p}_{1},\ldots\vec{p}_{n-1}}(t)+t\cdot\vec{r}_{\vec{p}_{1},\vec{p}_{2},\ldots\vec{p}_{n}}(t) \\
+	t\in[0,1]
+\end{align*}
+
+\makebox[\columnwidth]{\includegraphics[width=\columnwidth]{images/casteljau}}
+
+
+\subsection{Composite B\'ezier Curves}
+Smush together multiple B\'ezier curves using common control points and smoothness conditions.
+\\[1em]
+\textbf{$\mathbf{C^1}$ smoothness condition:}
+Given the curve $\vec{r}_p(t)$ using control points $\vec{P}_0,\ldots,\vec{P}_n$
+and the curve $\vec{r}_q(t)$ using control points $\vec{Q}_0,\ldots,\vec{Q}_m$
+and $\vec{P}_n=\vec{Q}_0$, then the composite curve is continuously differentiable at the common control point iif
+\colorbox{shadecolor}{$\vec{r'}_p(1) = n(\vec{P}_n - \vec{P}_{n-1}) = m(\vec{Q}_1 - \vec{Q}_0) = \vec{r'}_q(0)$}.
+\\[1em]
+\textbf{$\mathbf{C^2}$ smoothness condition:}
+\emph{Additionally to the conditions above},
+for $C^2$ smoothness the two curves are only twice continuously differentiable at the common point iif
+\begin{snugshade*}
+	\begin{align*}
+		\vec{r''}_p(1) & = n(n-1)\left(\vec{P}_n-2\vec{P}_{n-1}+\vec{P}_{n-2}\right) \\
+		& = m(m-1)\left(\vec{Q}_2 - 2\vec{Q}_1 + \vec{Q}_0\right) = \vec{r''}_q(0)
+	\end{align*}
+\end{snugshade*}
+\textbf{$\mathbf{C^k}$ smoothness condition:}
+$j$ times continuously differentiable iif:
+\begin{align*}
+	\vec{r}^{(j)}_p(1) & = n(n-1)\cdots(n-j+1)(\Delta^{j}\vec{P}_{n-j}) \\
+	& = m(m-1)\cdots(m-j+1)(\Delta^{j}\vec{Q}_{0}) = \vec{r}^{(j)}_q(0)
+\end{align*}
