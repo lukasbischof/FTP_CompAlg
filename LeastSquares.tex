@@ -40,7 +40,7 @@ Some basis functions are:
 \end{itemize}
 
 \subsection{Design Matrix}
-Given a \emph{measurement} $\{(x_i,y_i)\}_{i=0,\ldots,N}$ (with $x$ a vector in the multivariate case)
+Given a \emph{measurement} with $N-1$ points $\{(x_i,y_i)\}_{i=0,\ldots,N}$ (with $x$ a vector in the multivariate case)
 and a set of \emph{basis functions} $\{g_j\}_{j=0,\ldots,m}$,
 the design matrix $G$ results from the linear system
 $y_i=\sum_{j=0}^ma_jg_j(x_i)\quad(i=0,\ldots,N)$ with $N+1$ equations and $m+1$ unknowns:
@@ -79,3 +79,68 @@ $}
 
 with $G^T\cdot G$ being a normal,
 symmetric and relatively small $(m+1)\times(m+1)$ matrix resulting in $f(x)=\sum a_jg_j(x)$ as best $L^2$ fit for data.
+
+\subsection{Singular Value Decomposition}
+Any real matrix $G$ of dimensions $((N+1)\times (m+1))$ can be decomposed as the product $G=UDV^T$ 
+where $U$ is an orthogonal (meaning $UU^t=U^tU=I\Rightarrow U^{-1}=U^T$) (large) matrix with $\dim U = (N+1)\times (N+1)$, 
+D is a diagonal matrix with $\dim D = (N+1)\times (m+1)$ and
+V is orthogonal (small) with $\dim V = (m+1)\times (m+1)$.
+
+Using this decomposition, the minimisation of the square sum of residuals can be found in a numerically stable way:
+With $G$ decomposed to $G=UDV^T$, the system translates to
+\colorbox{shadecolor}{
+	$\hat{r}| = \hat{y}| - D\hat{a}| = \vec{0}\quad$
+	{\color{darkgray} $\left[\hat{r} = U^Tr|,\ \hat{y}| = U^Ty|\text{ and }\hat{a} = V^Ta|\right]$}
+}
+
+and is solved for zero since $\hat{S}$ is minimal iff $\hat{r}_i=0\quad(i=0,\ldots,m)$.
+Due to the orthogonality of $U$, the square sum $\hat{S}$ of residuals $\hat{r}$ is equal to the square sum $S$ of the original
+residuals $r|$.
+
+In the final step, we receive $a| = V\cdot\hat{a}|$.
+
+\subsection{Uniform Arguments and Orth. Polynomials}
+
+If the set of basisi functions $\{g_j\}_{j=0,\ldots,m}$ is \emph{orthogonal} with respect to the inner product
+$\langle g_j,g_k\rangle := \sum_{i=0}^N g_j(x_i)g_k(x_i)$, $G^TG$ is diagonal and the solution is trivial:
+\begin{align*}
+	a_j=\frac{\langle y|, g_j|\rangle}{\langle g_j|, g_j|\rangle}\quad(j=0,1,\ldots,m)
+\end{align*}
+
+\paragraph{Uniform Arguments}
+If we have a set of uniformly distributed arguments of a measurement $\{x_0 + t\cdot h\}_{t=0,\ldots,N}$,
+then is the set of polynomials
+\begin{align*}
+	p_{k,N}(t) 
+	= \sum_{i=0}^{k}(-1)^{i}{\binom{k}{i}}{\binom{k+i}{i}}{\frac{t^{(i)}}{N^{(i)}}}\quad(k=0,1,...,N)
+\end{align*}
+with integer normalisation $t = (x-x_0)\div h$ orthogonal with respect to the inner product $\langle g,\tilde{g}\rangle$.
+Here, $N^{(i)} = N(N-1)(N-2)\cdots(N-i+1)$ and $t^{(i)} = t(t-1)(t-2)\cdots(t-i+1)$ are defined as falling factorials.
+
+$\Rightarrow$ We therefore get a design matrix with ``x''-values $p_{0,N}(t), p_{1,N}(t),\ldots$
+(e.g. $1$; $1-\frac{t}{2}$; $1-\frac{3t}{2}+\frac{1}{2}(-1+t)t$, ...) and ``y''-values being the $t=0,\ldots,N$ integer values.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
