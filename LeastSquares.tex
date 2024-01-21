@@ -1,0 +1,81 @@
+\section{Least-Squares Approximation}
+
+\begin{itemize}
+	\item Error = Residuum, errors = residuals. $e_i=r_i=y_i - \sum_{j=0}^ma_jg_j(x_i)$
+	\item $\min_i\sum_i|e_i|$: $L^1$ norm
+	\item $\min_i\sum_ie_i^2$: $L^2$ norm
+	\item Basis functions $g_0,g_1,\ldots,g_m$ (m=degree, (polynom $x^m$))
+	\item normalisation of data: $\frac{x-\mu}{\sigma}$ ($\mu$=mean, $\sigma$=deviation)
+\end{itemize}
+
+Some basis functions are:
+\begin{itemize}
+	\item{
+		Trigonometric:
+		\begin{align*}
+			\left\{e^{i k x}\ |\ k\in Z\right\}{\text{or }}\left\{{\cos(k x){\mathrm{,}}\sin(k x)\ |\ k\in Z}\right\}\quad[x\in(0,2\pi)]
+		\end{align*}
+	}
+	\item{
+		Polynomials:
+		\begin{align*}
+			& \left\{x^{j}\ |\ j\in \mathbb{N}_{0}\right\} & \text{(standard monomials)} \\
+			& \left\{\left({\frac{x-\mu}{\sigma}}\right)^{j}|\ j\in \mathbb{N}_{0}\right\} & \text{(normalised standard monomials)} \\
+			& \left\{ \pi_{j}(x)\ |\ j\in \mathbb{N}_{0} \right\} & \text{(Newton polynomials)} \\
+			& \left\{T_{j}(x)\ |\ j\in \mathbb{N}_{0}\right\} & \text{(Chebyshev, }x\in(-1,1))
+		\end{align*}
+		\begin{align*}
+			& \left\{L_{j}(x)=\frac{e^{x}}{j!}\frac{d^{j}}{d x^{j}}\Big(e^{-x}x^{j}\Big)\ |\ j\in \mathbb{N}_{0}\right\}
+			\text{(Laguerre, }x\in(0,\infty)) \\
+			& \left\{H_{j}(x)=(-1)^{j}e^{\frac{x^{2}}{2}}\,{\frac{d^{j}}{d x^{j}}}\left(e^{-\frac{x^{2}}{2}}\right)\ |\ j\in \mathbb{N}_{0}\right\} \\
+			&\quad\text{(Hermite, }x\in(0,\infty))
+		\end{align*}
+	}
+	\item{
+		Exponentials
+		\begin{align*}
+			\left\{ e^{\alpha kx}\ |\ k\in\mathbb{Z} \right\}
+		\end{align*}
+	}
+\end{itemize}
+
+\subsection{Design Matrix}
+Given a \emph{measurement} $\{(x_i,y_i)\}_{i=0,\ldots,N}$ (with $x$ a vector in the multivariate case)
+and a set of \emph{basis functions} $\{g_j\}_{j=0,\ldots,m}$,
+the design matrix $G$ results from the linear system
+$y_i=\sum_{j=0}^ma_jg_j(x_i)\quad(i=0,\ldots,N)$ with $N+1$ equations and $m+1$ unknowns:
+
+\begin{snugshade*}
+  \begin{align*}
+    \underbrace{
+      \begin{bmatrix}
+        g_0(x_0) & \hdots & g_m(x_0) \\
+        \vdots & \ddots & \vdots \\
+        g_0(x_N) & \hdots & g_m(x_N)
+      \end{bmatrix}
+    }_{\text{Design matrix }G}
+    \cdot
+    \begin{bmatrix}
+      a_0 \\
+      \vdots \\
+      a_m
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      y_0 \\
+      \vdots \\
+      y_N
+    \end{bmatrix}
+  \end{align*}
+\end{snugshade*}
+that in general is overdetermined ($m<N$) thus the squared sum of residuals
+$S=\sum_{i=0}^{N}\left(y_{i}-\sum_{j=0}^{m}a_{j}g_{j}(x_{i})\right)^{2}$
+has to be minimised [$\downarrow$].
+
+\paragraph{Normal Equation} Theorem: The squared sum of residuals $S$ is minimal iff:
+\colorbox{shadecolor}{$
+	G^T\cdot G\cdot a| = G^T\cdot y|\quad (a|\text{ and }y|\text{ are the column vectors})
+$}
+
+with $G^T\cdot G$ being a normal,
+symmetric and relatively small $(m+1)\times(m+1)$ matrix resulting in $f(x)=\sum a_jg_j(x)$ as best $L^2$ fit for data.

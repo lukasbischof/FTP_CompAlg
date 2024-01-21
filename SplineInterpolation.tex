@@ -141,7 +141,7 @@ The basis functions for B\'ezier splines are the Bernstein polynomials:
 
 by an affine transformation into the interval $[a,b]$ we get the transformed Bernstein polynomials:
 \begin{align*}
-	B_{i,n}(u,a,b) = B_{i,n}\left(\frac{u-a}{b-a}\right) 
+	B_{i,n}(u,a,b) = B_{i,n}\left(\frac{u-a}{b-a}\right)
 	= \frac{1}{(b-a)^n}\binom{n}{i}(b-u)^{n-i}(u-a)^i
 \end{align*}
 The polynomials have the following properties:
@@ -194,12 +194,12 @@ Smush together multiple B\'ezier curves using common control points and smoothne
 \textbf{$\mathbf{C^1}$ smoothness condition:}
 Given the curve $\vec{r}_p(t)$ using control points $\vec{P}_0,\ldots,\vec{P}_n$
 and the curve $\vec{r}_q(t)$ using control points $\vec{Q}_0,\ldots,\vec{Q}_m$
-and $\vec{P}_n=\vec{Q}_0$, then the composite curve is continuously differentiable at the common control point iif
+and $\vec{P}_n=\vec{Q}_0$, then the composite curve is continuously differentiable at the common control point iff
 \colorbox{shadecolor}{$\vec{r'}_p(1) = n(\vec{P}_n - \vec{P}_{n-1}) = m(\vec{Q}_1 - \vec{Q}_0) = \vec{r'}_q(0)$}.
 \\[1em]
 \textbf{$\mathbf{C^2}$ smoothness condition:}
 \emph{Additionally to the conditions above},
-for $C^2$ smoothness the two curves are only twice continuously differentiable at the common point iif
+for $C^2$ smoothness the two curves are only twice continuously differentiable at the common point iff
 \begin{snugshade*}
 	\begin{align*}
 		\vec{r''}_p(1) & = n(n-1)\left(\vec{P}_n-2\vec{P}_{n-1}+\vec{P}_{n-2}\right) \\
@@ -207,7 +207,7 @@ for $C^2$ smoothness the two curves are only twice continuously differentiable a
 	\end{align*}
 \end{snugshade*}
 \textbf{$\mathbf{C^k}$ smoothness condition:}
-$j$ times continuously differentiable iif:
+$j$ times continuously differentiable iff:
 \begin{align*}
 	\vec{r}^{(j)}_p(1) & = n(n-1)\cdots(n-j+1)(\Delta^{j}\vec{P}_{n-j}) \\
 	& = m(m-1)\cdots(m-j+1)(\Delta^{j}\vec{Q}_{0}) = \vec{r}^{(j)}_q(0)
