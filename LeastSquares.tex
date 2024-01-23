@@ -1,42 +1,42 @@
 \section{Least-Squares Approximation}
 
 \begin{itemize}
-	\item Error = Residuum, errors = residuals. $e_i=r_i=y_i - \sum_{j=0}^ma_jg_j(x_i)$
-	\item $\min_i\sum_i|e_i|$: $L^1$ norm
-	\item $\min_i\sum_ie_i^2$: $L^2$ norm
-	\item Basis functions $g_0,g_1,\ldots,g_m$ (m=degree, (polynom $x^m$))
-	\item normalisation of data: $\frac{x-\mu}{\sigma}$ ($\mu$=mean, $\sigma$=deviation)
+    \item Error = Residuum, errors = residuals. $e_i=r_i=y_i - \sum_{j=0}^ma_jg_j(x_i)$
+    \item $\min_i\sum_i|e_i|$: $L^1$ norm
+    \item $\min_i\sum_ie_i^2$: $L^2$ norm
+    \item Basis functions $g_0,g_1,\ldots,g_m$ (m=degree, (polynom $x^m$))
+    \item normalisation of data: $\frac{x-\mu}{\sigma}$ ($\mu$=mean, $\sigma$=deviation)
 \end{itemize}
 
 Some basis functions are:
 \begin{itemize}
-	\item{
-		Trigonometric:
-		\begin{align*}
-			\left\{e^{i k x}\ |\ k\in Z\right\}{\text{or }}\left\{{\cos(k x){\mathrm{,}}\sin(k x)\ |\ k\in Z}\right\}\quad[x\in(0,2\pi)]
-		\end{align*}
-	}
-	\item{
-		Polynomials:
-		\begin{align*}
-			& \left\{x^{j}\ |\ j\in \mathbb{N}_{0}\right\} & \text{(standard monomials)} \\
-			& \left\{\left({\frac{x-\mu}{\sigma}}\right)^{j}|\ j\in \mathbb{N}_{0}\right\} & \text{(normalised standard monomials)} \\
-			& \left\{ \pi_{j}(x)\ |\ j\in \mathbb{N}_{0} \right\} & \text{(Newton polynomials)} \\
-			& \left\{T_{j}(x)\ |\ j\in \mathbb{N}_{0}\right\} & \text{(Chebyshev, }x\in(-1,1))
-		\end{align*}
-		\begin{align*}
-			& \left\{L_{j}(x)=\frac{e^{x}}{j!}\frac{d^{j}}{d x^{j}}\Big(e^{-x}x^{j}\Big)\ |\ j\in \mathbb{N}_{0}\right\}
-			\text{(Laguerre, }x\in(0,\infty)) \\
-			& \left\{H_{j}(x)=(-1)^{j}e^{\frac{x^{2}}{2}}\,{\frac{d^{j}}{d x^{j}}}\left(e^{-\frac{x^{2}}{2}}\right)\ |\ j\in \mathbb{N}_{0}\right\} \\
-			&\quad\text{(Hermite, }x\in(0,\infty))
-		\end{align*}
-	}
-	\item{
-		Exponentials
-		\begin{align*}
-			\left\{ e^{\alpha kx}\ |\ k\in\mathbb{Z} \right\}
-		\end{align*}
-	}
+    \item{
+        Trigonometric:
+        \begin{align*}
+            \left\{e^{i k x}\ |\ k\in Z\right\}{\text{or }}\left\{{\cos(k x){\mathrm{,}}\sin(k x)\ |\ k\in Z}\right\}\quad[x\in(0,2\pi)]
+        \end{align*}
+    }
+    \item{
+        Polynomials:
+        \begin{align*}
+            & \left\{x^{j}\ |\ j\in \mathbb{N}_{0}\right\} & \text{(standard monomials)} \\
+            & \left\{\left({\frac{x-\mu}{\sigma}}\right)^{j}|\ j\in \mathbb{N}_{0}\right\} & \text{(normalised standard monomials)} \\
+            & \left\{ \pi_{j}(x)\ |\ j\in \mathbb{N}_{0} \right\} & \text{(Newton polynomials)} \\
+            & \left\{T_{j}(x)\ |\ j\in \mathbb{N}_{0}\right\} & \text{(Chebyshev, }x\in(-1,1))
+        \end{align*}
+        \begin{align*}
+            & \left\{L_{j}(x)=\frac{e^{x}}{j!}\frac{d^{j}}{d x^{j}}\Big(e^{-x}x^{j}\Big)\ |\ j\in \mathbb{N}_{0}\right\}
+            \text{(Laguerre, }x\in(0,\infty)) \\
+            & \left\{H_{j}(x)=(-1)^{j}e^{\frac{x^{2}}{2}}\,{\frac{d^{j}}{d x^{j}}}\left(e^{-\frac{x^{2}}{2}}\right)\ |\ j\in \mathbb{N}_{0}\right\} \\
+            &\quad\text{(Hermite, }x\in(0,\infty))
+        \end{align*}
+    }
+    \item{
+        Exponentials
+        \begin{align*}
+            \left\{ e^{\alpha kx}\ |\ k\in\mathbb{Z} \right\}
+        \end{align*}
+    }
 \end{itemize}
 
 \subsection{Design Matrix}
@@ -46,27 +46,27 @@ the design matrix $G$ results from the linear system
 $y_i=\sum_{j=0}^ma_jg_j(x_i)\quad(i=0,\ldots,N)$ with $N+1$ equations and $m+1$ unknowns:
 
 \begin{snugshade*}
-  \begin{align*}
-    \underbrace{
-      \begin{bmatrix}
-        g_0(x_0) & \hdots & g_m(x_0) \\
-        \vdots & \ddots & \vdots \\
-        g_0(x_N) & \hdots & g_m(x_N)
-      \end{bmatrix}
-    }_{\text{Design matrix }G}
-    \cdot
-    \begin{bmatrix}
-      a_0 \\
-      \vdots \\
-      a_m
-    \end{bmatrix}
-    =
-    \begin{bmatrix}
-      y_0 \\
-      \vdots \\
-      y_N
-    \end{bmatrix}
-  \end{align*}
+    \begin{align*}
+        \underbrace{
+            \begin{bmatrix}
+                g_0(x_0) & \hdots & g_m(x_0) \\
+                \vdots   & \ddots & \vdots   \\
+                g_0(x_N) & \hdots & g_m(x_N)
+            \end{bmatrix}
+        }_{\text{Design matrix }G}
+        \cdot
+        \begin{bmatrix}
+            a_0    \\
+            \vdots \\
+            a_m
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            y_0    \\
+            \vdots \\
+            y_N
+        \end{bmatrix}
+    \end{align*}
 \end{snugshade*}
 that in general is overdetermined ($m<N$) thus the squared sum of residuals
 $S=\sum_{i=0}^{N}\left(y_{i}-\sum_{j=0}^{m}a_{j}g_{j}(x_{i})\right)^{2}$
@@ -74,23 +74,23 @@ has to be minimised [$\downarrow$].
 
 \paragraph{Normal Equation} Theorem: The squared sum of residuals $S$ is minimal iff:
 \colorbox{shadecolor}{$
-	G^T\cdot G\cdot a| = G^T\cdot y|\quad (a|\text{ and }y|\text{ are the column vectors})
+G^T\cdot G\cdot a| = G^T\cdot y|\quad (a|\text{ and }y|\text{ are the column vectors})
 $}
 
 with $G^T\cdot G$ being a normal,
 symmetric and relatively small $(m+1)\times(m+1)$ matrix resulting in $f(x)=\sum a_jg_j(x)$ as best $L^2$ fit for data.
 
 \subsection{Singular Value Decomposition}
-Any real matrix $G$ of dimensions $((N+1)\times (m+1))$ can be decomposed as the product $G=UDV^T$ 
-where $U$ is an orthogonal (meaning $UU^t=U^tU=I\Rightarrow U^{-1}=U^T$) (large) matrix with $\dim U = (N+1)\times (N+1)$, 
+Any real matrix $G$ of dimensions $((N+1)\times (m+1))$ can be decomposed as the product $G=UDV^T$
+where $U$ is an orthogonal (meaning $UU^t=U^tU=I\Rightarrow U^{-1}=U^T$) (large) matrix with $\dim U = (N+1)\times (N+1)$,
 D is a diagonal matrix with $\dim D = (N+1)\times (m+1)$ and
 V is orthogonal (small) with $\dim V = (m+1)\times (m+1)$.
 
 Using this decomposition, the minimisation of the square sum of residuals can be found in a numerically stable way:
 With $G$ decomposed to $G=UDV^T$, the system translates to
 \colorbox{shadecolor}{
-	$\hat{r}| = \hat{y}| - D\hat{a}| = \vec{0}\quad$
-	{\color{darkgray} $\left[\hat{r} = U^Tr|,\ \hat{y}| = U^Ty|\text{ and }\hat{a} = V^Ta|\right]$}
+    $\hat{r}| = \hat{y}| - D\hat{a}| = \vec{0}\quad$
+        {\color{darkgray} $\left[\hat{r} = U^Tr|,\ \hat{y}| = U^Ty|\text{ and }\hat{a} = V^Ta|\right]$}
 }
 
 and is solved for zero since $\hat{S}$ is minimal iff $\hat{r}_i=0\quad(i=0,\ldots,m)$.
@@ -104,18 +104,155 @@ In the final step, we receive $a| = V\cdot\hat{a}|$.
 If the set of basisi functions $\{g_j\}_{j=0,\ldots,m}$ is \emph{orthogonal} with respect to the inner product
 $\langle g_j,g_k\rangle := \sum_{i=0}^N g_j(x_i)g_k(x_i)$, $G^TG$ is diagonal and the solution is trivial:
 \begin{align*}
-	a_j=\frac{\langle y|, g_j|\rangle}{\langle g_j|, g_j|\rangle}\quad(j=0,1,\ldots,m)
+    a_j=\frac{\langle y|, g_j|\rangle}{\langle g_j|, g_j|\rangle}\quad(j=0,1,\ldots,m)
 \end{align*}
 
 \paragraph{Uniform Arguments}
 If we have a set of uniformly distributed arguments of a measurement $\{x_0 + t\cdot h\}_{t=0,\ldots,N}$,
 then is the set of polynomials
 \begin{align*}
-	p_{k,N}(t) 
-	= \sum_{i=0}^{k}(-1)^{i}{\binom{k}{i}}{\binom{k+i}{i}}{\frac{t^{(i)}}{N^{(i)}}}\quad(k=0,1,...,N)
+    p_{k,N}(t)
+    = \sum_{i=0}^{k}(-1)^{i}{\binom{k}{i}}{\binom{k+i}{i}}{\frac{t^{(i)}}{N^{(i)}}}\quad(k=0,1,...,N)
 \end{align*}
 with integer normalisation $t = (x-x_0)\div h$ orthogonal with respect to the inner product $\langle g,\tilde{g}\rangle$.
 Here, $N^{(i)} = N(N-1)(N-2)\cdots(N-i+1)$ and $t^{(i)} = t(t-1)(t-2)\cdots(t-i+1)$ are defined as falling factorials.
 
 $\Rightarrow$ We therefore get a design matrix with ``x''-values $p_{0,N}(t), p_{1,N}(t),\ldots$
 (e.g. $1$; $1-\frac{t}{2}$; $1-\frac{3t}{2}+\frac{1}{2}(-1+t)t$, ...) and ``y''-values being the $t=0,\ldots,N$ integer values.
+
+\subsection{Chebyshev Orthogonal Polynomials}
+Analogously as in polynomial collocation, these polynomials help avoid Runge-phenomenon.
+
+The T-polynomials are defined on the interval $[-1,1]$:
+\begin{align*}
+    T_n(x)=\cos(n\cdot \arccos(x))\quad (n=0,1,\ldots)
+\end{align*}
+
+The degree $n$ is the amount of divisions (intersections at $y=0$).
+The first few Chebyshev polynomials are:
+\begin{align*}
+    & \overbrace{1}^{0};\overbrace{x}^{1};\overbrace{2x^2-1}^{2};\overbrace{4x^3-3x}^{3};\overbrace{8x^4 - 8x^2 + 1}^{4};
+    \overbrace{16x^{5}-20x^{3}+5\,x}^{5} \\
+    & \underbrace{32x^{6}-48x^{4}+18x^{2}-1}_{6};\underbrace{64x^{7}-112x^{5}+56\,x^{3}-7\,x}_{7};\ \ldots
+\end{align*}
+
+They fulfil the second order recursion:
+\colorbox{shadecolor}{$T_{n+1}(x)=2xT_n(x)-T_{n-1}(x)\quad(n\geq 2)$}.
+We can \emph{normalise the polynomials}: $\frac{1}{2^n}T_{n+1}(x)$,
+which is called a min-max polynomial which we can also write in the Newton polynomial form $(x-x_0)\cdots(x-x_n)=\pi_{n+1}(x)$
+and has $\max_{-1\leq x \leq 1}|\pi_{n+1}(x)|=\frac{1}{2^n}$.
+
+\paragraph{Discrete Orthogonality}
+
+The Chebyshev polynomials are orthogonal in the following sense:
+\begin{align*}
+    \langle T_{j},T_{k}\rangle := \sum_{i=0}^{N}T_{j}(x_{i})T_{k}(x_{i})
+    =
+    \left\{
+    \begin{matrix}
+        0       & j \neq k \\
+        (N+1)/2 & j = k \neq 0 \\
+        N+1     & j=k=0
+    \end{matrix}
+    \right. \\
+    {\color{gray} (j,k=0,\ldots,N)}
+\end{align*}
+\begin{align*}
+    x_{i}=\cos\!\left({\frac{2i+1}{2(N+1)}}\pi\right)\quad{\color{gray} (i=0,1,...,N)}
+\end{align*}
+
+which results in a diagonal $G^TG$ matrix:
+\begin{align*}
+    \begin{bmatrix}
+        N+1 & 0             & 0             & \ldots & 0             \\
+        0   & \frac{N+1}{2} & 0             & \ldots & 0             \\
+        0   & 0             & \frac{N+1}{2} & \ldots & 0             \\
+        0   & 0             & 0             & \ddots & 0             \\
+        0   & 0             & 0             & \ldots & \frac{N+1}{2}
+    \end{bmatrix}_{\color{gray}(m+1)\times(m+1)}
+\end{align*}
+
+We can use an affine transformation $x\mapsto a + \frac{b-a}{2}(x+1)$ to map the
+Chebyshev arguments on an interval $[a,b]$ and it's inverse
+$-1+2\frac{x-a}{b-a}$ mapping $[a,b]$ to $[-1, 1]$, resulting in the basis
+\begin{align*}
+    \{1,T_{1}(-1+2\frac{x-a}{b-a}),T_{2}(-1+2\frac{x-a}{b-a}),T_{3}(-1+2\frac{x-a}{b-a}),\ldots\}
+\end{align*}
+
+and the Chebyshev arguments
+\begin{align*}
+    x_{i}=a+\frac{b-a}{2}\Biggl(\cos\left(\frac{2i+1}{2(N+1)}\pi\right)+1\Biggr)\ \ (i=0,1,...,N)
+\end{align*}
+
+\paragraph{Continuous Orthogonality}
+
+With a (theoretical) infinite amount of measurements $N\to\infty$,
+the Chebyshev polynomials fulfil the continuous orthogonal relation:
+\begin{align*}
+    \left\langle T_{j},T_{k}\right\rangle_{cont}
+    := \int_{-1}^{1} T_{j}(x)T_{k}(x)\frac{d x}{\sqrt{1-x^{2}}} =
+    \left\{
+    \begin{matrix}
+        0       & j \neq k     \\
+        \pi / 2 & j = k \neq 0 \\
+        \pi     & j = k = 0
+    \end{matrix}
+    \right.
+\end{align*}
+
+This means, if $y(x)$ is a function on $(-1,1)$ which is absolutely square-integrable with respect to the
+weight function $w(x):={\frac{1}{\sqrt{1-x^{2}}}}\quad(x\in(-1,1))$ in the sense that
+$\int_{-1}^1|y(x)|^{2}{\frac{d x}{{\sqrt{1-x^{2}}}}<\infty}$
+then the continuous square-sum of residuals
+\begin{align*}
+    S := \int_{-1}^1\biggl(y(x)-\sum_{j=0}^{m}a_{j}T_{j}(x)\biggr\}^{2}\frac{d x}{\sqrt{1-x^{2}}}
+\end{align*}
+is minimal iif
+\begin{align*}
+    a_{j} =
+    \left\{
+    \begin{matrix}
+        \frac{2}{\pi}\int_{-1}^{1}y(x)T_{j}(x)\frac{d x}{\sqrt{1-x^{2}}} & j > 0 \\
+        \frac{1}{\pi}\int_{-1}^{1}y(x)\frac{d x}{\sqrt{1-x^{2}}}         & j = 0
+    \end{matrix}
+    \right.
+\end{align*}
+
+\subsection{Multivariate Linear Least-Squares Approx.}
+
+X-Arguments now are vectors:
+$\vec{x}_0, \vec{x}_1, \ldots, \vec{x}_N$ of dimension $d$.
+Usually, tensor products of univariate basis functions are used:
+\begin{align*}
+    \sum_{j_1=0}^{m_1} \sum_{j_2=0}^{m_2}\cdots \sum_{j_d=0}^{m_d}
+    a_{j_1, j_2, \ldots, j_d}g_{j_1}(x^{(1)})g_{j_2}(x^{(2)})\cdots g_{j_d}(x^{(d)})
+\end{align*}
+defining a basis of $m_1\times m_2\times \cdots \times m_d$ functions in d variables $x^{(1)}, x^{(2)},...,x^{(d)}$.
+\\[1em]
+\textbf{Example:}
+We have a 2d input $(x,y)=\vec{x}_i$ and a 1d output $z_i$.
+The residuals we want to minimise therefore are $r_i=z_i-f(\vec{x}_i)$ with $f$ being the approximated surface.
+We chose the basis functions ${\color{blue}\{1, x\}}\times{\color{green}\{1, y, y^2\}}$ giving 6 bivariate basis functions:
+$\{{\color{blue}1}, {\color{blue}1}{\color{green}y}, {\color{blue}1}{\color{green}y^2},
+    {\color{blue}x}\cdot{\color{green}1}, {\color{blue}x}{\color{green}y}, {\color{blue}x}{\color{green}y^2}
+\}$ with 6 unknown weight variables $a_{00}, a_{01}, a_{02}, a_{10}, a_{11}, a_{12}$ and the design matrix $G$:
+
+\begin{center}
+    \begin{tabular}{l|cccr}
+        $\mathbf{G}$ & $g_0 = 1$ & $g_1 = y$        & \ldots & $g_m=xy^2$       \\
+        \hline
+        $\vec{x}_0$  & 1         & $g_1(\vec{x}_0)$ & \ldots & $g_m(\vec{x}_0)$ \\
+        $\vec{x}_1$  & 1         & $g_1(\vec{x}_1)$ & \ldots & $g_m(\vec{x}_1)$ \\
+                     &           &                  & \vdots &                  \\
+        $\vec{x}_N$  & 1         & $g_1(\vec{x}_N)$ & \ldots & $g_m(\vec{x}_N)$ \\
+    \end{tabular}
+\end{center}
+
+
+
+
+
+
+
+
+
