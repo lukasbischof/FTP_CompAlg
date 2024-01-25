@@ -89,4 +89,45 @@ $\mathrm{vol}(A(C))=|\det(A)|\mathrm{vol}(C)$, meaning for $y_j = f_j(x_1,\ldots
 
 \makebox[\columnwidth]{\includegraphics[width=\columnwidth]{images/jacobian}}
 
-%\textbf{For Example:}
+\textbf{For Example:} We want to compute the following integral on $\mathbb{R}^2$:
+\begin{align*}
+	\iint_{\mathbb{R}^2}e^{-\frac{x^2+y^2}{2}}\ dxdy
+\end{align*}
+
+by transformation to polar coordinates $(r,\varphi)$.
+Hence, we have the transformation T: $(r,\varphi) \mapsto_T (x,y)$ with
+\begin{align*}
+	T(r,\varphi) = \begin{bmatrix}
+		r\cos(\varphi) \\
+		r\sin(\varphi)
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		x(r, \varphi) \\
+		y(r, \varphi)
+	\end{bmatrix}
+\end{align*}
+
+and the Jacobian matrix:
+\begin{align*}
+	J_T =
+	\begin{bmatrix}
+		\frac{\partial x}{\partial r} & \frac{\partial x}{\partial \varphi} \\
+		\frac{\partial x}{\partial r} & \frac{\partial x}{\partial \varphi}
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		\cos(\varphi) & -r\sin(\varphi) \\
+		\sin(\varphi) & r\cos(\varphi)
+	\end{bmatrix}
+\end{align*}
+
+with the determinant $\det(J_T) = r\cos^2(\varphi) + r\sin^2(\varphi) = r$.
+The transformed integral therefore looks like this:
+\begin{align*}
+	& \iint_{\mathbb{R}^2}e^{-\frac{x^2+y^2}{2}}\ dxdy \Rightarrow
+	\int_0^{2\pi}\int_0^\infty e^{-\frac{\color{blue}r^2(\sin^2(\varphi)+\cos^2(\varphi))}{2}}{\color{purple}\det J_T}\ drd\varphi \\
+	& = \int_0^{2\pi}\left(\int_0^\infty e^{-\frac{\color{blue}r^2}{2}}{\color{purple}r}\ dr\right)d\varphi 
+	= \int_0^{2\pi} \left[ -e^{-\frac{r^2}{2}} \right]^\infty_0\ d\varphi \\
+	& = \int_0^{2\pi} 1\ d\varphi = [\varphi]^{2\pi}_0 = 2\pi
+\end{align*}
