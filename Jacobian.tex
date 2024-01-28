@@ -87,7 +87,12 @@ $\mathrm{vol}(A(C))=|\det(A)|\mathrm{vol}(C)$, meaning for $y_j = f_j(x_1,\ldots
     \underbrace{dx_1dx_2\cdots dx_n}_\text{volume element}
 \end{align*}
 
+(requiring that $J_f$ is regular/invertible, i.e. $\det_{J_f}\neq0$)
+
 \makebox[\columnwidth]{\includegraphics[width=\columnwidth]{images/jacobian}}
+
+We therefore can do $\iint f(g(u,v), h(u,v))\det_J\ dudv$ when calculating a volume in $x,y$ using functions
+$x=g(u,v)$ and $y=h(u,v)$ and the respective determinant of the transformation jacobian.
 
 \textbf{For Example:} We want to compute the following integral on $\mathbb{R}^2$:
 \begin{align*}

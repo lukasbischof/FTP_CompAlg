@@ -15,7 +15,7 @@ Group together polynomials of a subset of the measurement into a global polynomi
 \end{align*}
 
 \subsection{Newton Basis Polynomials}
-Given a set $n+1$ of measurements.
+Given a set $n+1$ of measurements (resulting order = $n$).
 
 The basis polynomials with degree $k=0,1,2,\ldots,n$:
 
@@ -66,7 +66,8 @@ from which (in this special example above) we can derive the collocation polynom
 
 With the ``real'', physical (usually unknown) function $y=f(x)$ interpolated by $p(x)$ and some intermediate value $\xi$:
 \begin{align*}
-    \varepsilon = y(x)-p(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}\pi_{n+1}(x)\ \left[\xi\in \left(\min(x_k),\max(x_k)\right)\right]
+    & \varepsilon = |y(x)-p(x)| = \left|\frac{f^{(n+1)}(\xi)}{(n+1)!}\pi_{n+1}(x)\right| \\
+    & \left[\xi\in \left(\min(x_k),\max(x_k)\right) ,x\in (\min(x_k),\max(x_k))\right]
 \end{align*}
 
 With large values of $n$, this leads to the \emph{Runge phenomenon} (oscillation of errors towards the boundaries of arguments range),

@@ -9,7 +9,7 @@
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{cancel}
-\usepackage{xcolor}
+\usepackage[x11names]{xcolor}
 \usepackage{framed}
 \usepackage{array}
 
@@ -43,6 +43,8 @@
 
 \definecolor{shadecolor}{RGB}{200,240,240}
 \definecolor{purple}{RGB}{128,0,128}
+\definecolor{darkgreen}{RGB}{0,200,0}
+\definecolor{darkorange}{HTML}{c2410c}
 
 \renewcommand{\hrulefill}{\leavevmode\leaders\hrule height 0.2pt \hfill\kern0pt\relax}
 
@@ -89,6 +91,11 @@
         \hspace{.5cm}
 
         \input{Jacobian}
+
+        \hrulefill
+        \hspace{.5cm}
+
+        \input{NumericalODEs}
 
         \hrulefill
         \hspace{.5cm}
