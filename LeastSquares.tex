@@ -1,10 +1,15 @@
 \section{Least-Squares Approximation}
 
+We aim to collocate all measurement points with a linear combination
+\begin{align*}
+    \sum_{j=0}^m a_jg_j\quad (a_j\in\mathbb{R})
+\end{align*}
+of $m-1$ basis functions $\{g_j\}_{j=0,\ldots,m}$ ($m$ = degree ($x^m$))
+
 \begin{itemize}
     \item Error = Residuum, errors = residuals. $e_i=r_i=y_i - \sum_{j=0}^ma_jg_j(x_i)$
-    \item $\min_i\sum_i|e_i|$: $L^1$ norm
-    \item $\min_i\sum_ie_i^2$: $L^2$ norm
-    \item Basis functions $g_0,g_1,\ldots,g_m$ (m=degree, (polynom $x^m$))
+    \item $\min_i\sum_i|e_i|$: $\mathbf{L^1}$ \textbf{norm}
+    \item $\min_i\sum_ie_i^2$: $\mathbf{L^2}$ \textbf{norm}
     \item normalisation of data: $\frac{x-\mu}{\sigma}$ ($\mu$=mean, $\sigma$=deviation)
 \end{itemize}
 
@@ -40,7 +45,7 @@ Some basis functions are:
 \end{itemize}
 
 \subsection{Design Matrix}
-Given a \emph{measurement} with $N-1$ points $\{(x_i,y_i)\}_{i=0,\ldots,N}$ (with $x$ a vector in the multivariate case)
+Given a \emph{measurement} with $N+1$ points $\{(x_i,y_i)\}_{i=0,\ldots,N}$ (with $x$ a vector in the multivariate case)
 and a set of \emph{basis functions} $\{g_j\}_{j=0,\ldots,m}$,
 the design matrix $G$ results from the linear system
 $y_i=\sum_{j=0}^ma_jg_j(x_i)\quad(i=0,\ldots,N)$ with $N+1$ equations and $m+1$ unknowns:
@@ -98,6 +103,9 @@ Due to the orthogonality of $U$, the square sum $\hat{S}$ of residuals $\hat{r}$
 residuals $r|$.
 
 In the final step, we receive $a| = V\cdot\hat{a}|$.
+
+Also, the singular values of $D$ (the values on the diagonal) 
+are the \emph{roots of the eigenvalues of $G^TG$}.
 
 \subsection{Uniform Arguments and Orth. Polynomials}
 
@@ -218,6 +226,12 @@ is minimal iif
     \right.
 \end{align*}
 
+The \emph{error} for continuous least-square polynomials is approximated by the \colorbox{shadecolor}{first non-zero coefficient}
+when continuing the series beyond $m$:
+\begin{align*}
+    |e| = |a_{m+n}P_{m+n}|\quad (n\in\mathbb{N}, a_{m+n}\neq 0)
+\end{align*}
+
 \subsection{Multivariate Linear Least-Squares Approx.}
 
 X-Arguments now are vectors:
@@ -247,3 +261,41 @@ $\{{\color{blue}1}, {\color{blue}1}{\color{green}y}, {\color{blue}1}{\color{gree
         $\vec{x}_N$  & 1         & $g_1(\vec{x}_N)$ & \ldots & $g_m(\vec{x}_N)$ \\
     \end{tabular}
 \end{center}
+
+\subsection{Continuous Legendre Polynomials}
+
+Analogous to Chebyshev polynomials as orthogonal basis functions, we can use Legendre polynomials for a
+continuous least-squares approximation with the weighting function
+\begin{align*}
+    w(x)=1\quad(-1\leq x\leq 1)
+\end{align*}
+
+The orthogonal Legendre $P$-polynomials (with respect to the integral inner product) are defined by Rodriguez' formula:
+\begin{align*}
+    P_n(x)=\frac{1}{2^nn!}\frac{d^n}{dx^n}\left(x^2-1\right)^n
+\end{align*}
+yielding the polynomials
+\begin{snugshade*}
+    \begin{align*}
+        & P_0(x) = 1 \quad P_1(x) = x \quad P_2(x) = \frac{1}{2}\left(3x^2-1\right) \\
+        & P_4(x) = {\frac{1}{8}}{\big(}35x^{4}-30x^{2}+3{\big)}\quad P_{5}(x)={\frac{1}{8}}{\Big(}63x^{5}-70x^{3}+15x{\Big)} \\
+        & P_{6}(x)={\frac{1}{16}}\Bigl(231x^{6}-315x^{4}+105x^{2}-5\Bigr)\quad \ldots
+    \end{align*}
+\end{snugshade*}
+
+The polynomials have the following properties:
+\begin{itemize}
+    \item $\displaystyle\max_{-1\leq x\leq 1}|P_{n}(x)|=1\quad(n\in \mathbb{N}_0)$
+    \item $\displaystyle\min_{-1\leq x\leq 1} P_n(x) = -1\quad(n\in\mathbb{N})$
+    \item $P_n(-x) = (-1)^nP_n(x)$ (symmetry or anti-symmetry)
+    \item $P_n(1) = 1, P_n(-1) = (-1)^n$
+\end{itemize}
+
+the continuous square-sum of residuals $S:=\int_{-1}^1\left(y(x)-\sum_{j=0}^ma_jP_j(x)\right)^2\ dx$
+is minimal iff:
+\colorbox{shadecolor}{$
+    \displaystyle
+    a_j = \frac{2j+1}{2}\int_{-1}^1 y(x)P_j(x)\ dx\quad(j=0,\ldots,m)
+$}
+
+yielding the continuous least-squares Legendre approximation polynomial $\sum_{j=0}^m a_jP_j(x)$ of degree $m$.

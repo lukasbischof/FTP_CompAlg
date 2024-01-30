@@ -28,7 +28,8 @@ To determine the coefficients, the following equations can be used:
         \label{spline-a}
         a_i = y_i\ (i=0,\ldots,n-1)
     \end{align}
-
+\end{snugshade*}
+\begin{snugshade*}
     \textbf{For $\mathbf{b_i}$:}
     \begin{align}
         \label{spline-b}
@@ -39,7 +40,8 @@ To determine the coefficients, the following equations can be used:
         \label{spline-bn}
         b_{n-1} = \frac{y_n - a_{n-1}}{h_{n-1}}-c_{n-1}h_{n-1}-d_{n-1}h_{n-1}^2
     \end{align}
-
+\end{snugshade*}
+\begin{snugshade*}
     \textbf{For $\mathbf{c_i}$ coefficients:} $((n-2)\times n)$ linear system
     (underdetermined $\Rightarrow$ many solutions)
     \begin{align*}
@@ -65,7 +67,8 @@ To determine the coefficients, the following equations can be used:
             \vdots
         \end{bmatrix}_{i=1,\ldots,n-2}
     \end{align*}
-
+\end{snugshade*}
+\begin{snugshade*}
     \textbf{For $\mathbf{d_i}$:}
     \begin{align}
         \label{spline-d}
@@ -155,12 +158,14 @@ The polynomials have the following properties:
 \end{enumerate}
 
 \paragraph{Bezier curves}
-Using a set of $d$-dimensional control points (vectors) $\vec{P_0}, \vec{P_1}, \ldots, \vec{P_n}$ ($n\geq 2$) in $\mathbb{R}^d$:
+Using a set of $n+1$ $d$-dimensional control points (vectors) $\vec{P_0}, \vec{P_1}, \ldots, \vec{P_n}$ ($n\geq 2$) in $\mathbb{R}^d$:
 \begin{snugshade*}
 	\begin{align*}
 		\vec{r}(t) = \sum_{i=0}^n \vec{P_i}B_{i,n}(t)\ \ \ t\in[0,1]
 	\end{align*}
 \end{snugshade*}
+giving a spline of degree $n$.
+
 The B\'ezier curve lies in the convex hull of its points:
 $\{x\in R^{d}\mid x=\sum_{i=0}^{n}\lambda_{i}{\vec{P}}_{i}\wedge\sum_{i=0}^{n}\lambda_{i}=1\wedge 0\leq\lambda_{i}\leq1\}$
 and has the following properites:

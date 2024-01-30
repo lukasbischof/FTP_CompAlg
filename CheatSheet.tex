@@ -1,4 +1,4 @@
-\section{Cheat Sheet}
+\section{Basic Math}
 
 \subsection{Roots}
 
@@ -31,6 +31,11 @@
 \subsection{Binomial Coefficient}
 \begin{align*}
 	\binom{n}{k} = \frac{n!}{k!(n-k)!}
+\end{align*}
+
+\subsection{Faculties}
+\begin{align*}
+    0! = 1, 1! = 1, 2! = 2, 3! = 6, 4! = 24, 5! = 120, 6! = 720
 \end{align*}
 
 \subsection{Determinant}
@@ -128,12 +133,8 @@ Special case where $a(x)=a=\mathrm{const.}$ and $b(x)=b=\mathrm{const.}$:
     =\int_a^b\frac{\partial}{\partial x}f(x,t)\ dt
 \end{equation*}
 
-\subsection{Particular Solutions to Simple ODEs}
+\subsection{Converting second-order ODEs}
 
-\begin{tabular}[h]{rcl}
-    $f'(x)=\frac{c}{x}f(x)$ & $\Rightarrow$ & $f(x)=k_1y^c$                                             \\
-    $f'(x)=x\cdot f(x)$     & $\Rightarrow$ & $f(x)=k_1e^{cx}$                                          \\
-    $f''(x) = c\cdot f(x)$  & $\Rightarrow$ & $f(x) = k_1e^{\sqrt{c}x}+k_2e^{-\sqrt{c}x}$               \\
-    $f''(x) = -c\cdot f(x)$ & $\Rightarrow$ & $f(x)=k_1\sin(\sqrt{c}x)+k_2\cos(\sqrt{c}x)$              \\
-    $f'(x)+af(x) = b$       & $\Rightarrow$ & $f(x) = \left(f(0)-\frac{b}{a}\right)e^{-ax}+\frac{b}{a}$
-\end{tabular}
+For a second-order equation $y''=f(x,y,y')$, we can introduce $p=y'$, transforming the equation
+to $p'=f(x,y,p)$ and thus receiving a system of ODEs with initial conditions
+$p(x_0)=y_1, y(x_0) = y_0$.

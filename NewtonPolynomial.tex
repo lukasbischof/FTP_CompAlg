@@ -2,9 +2,9 @@
 
 For some interpolation problem (collocation), a polynomial
 $p(x) = c_0 + c_1x + c_2x^2 + \ldots + c_mx^m$
-of degree $m$ is required such that the degree $m$ is minimal while meeting collocation conditions.
+of degree $m$ is required such that the degree $m$ is minimal while meeting collocation condition $y(x_k)=p(x_k)$.
 
-The data (measurements) are given by indexed pairs $(x_k,y_k)$ with $k=0,1,2,\ldots,n$.
+The $n+1$ measurements are given by indexed pairs $(x_k,y_k)$ with $k=0,1,2,\ldots,n$.
 
 \subsection{Aitken-Neville Recursion Formula}
 
@@ -15,7 +15,7 @@ Group together polynomials of a subset of the measurement into a global polynomi
 \end{align*}
 
 \subsection{Newton Basis Polynomials}
-Given a set $n+1$ of measurements (resulting order = $n$).
+Given a set $n+1$ of measurements (resulting \emph{order = $n$}).
 
 The basis polynomials with degree $k=0,1,2,\ldots,n$:
 

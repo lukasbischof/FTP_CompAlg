@@ -1,32 +1,58 @@
 \section{Multivariate Polynomial Interpolation}
+
 \subsection{Bilinear Interpolation}
 
-E.g. we want to interpolate color between four pixels.
+E.g.\ we want to interpolate color between four pixels.
 We get the four basis functions $\{\pi_0(x), \pi_1(x)\} \times \{\pi_0(y), \pi_1(y)\}$
 represented by a 2-fold tensor product:
 \begin{align*}
-	\overbrace{
-		\left.
-		\begin{bmatrix}
-			1\cdot 1 & (x-x_0) \\
-			1\cdot (y-y_0) & (x-x_0)(y-y_0)
-		\end{bmatrix}
-		\right\}
-	}^{\begin{matrix}
-		\pi_0(x) & & & & \pi_1(x)
-	\end{matrix}}
-	\begin{matrix}
-		\pi_0(y) \\
-		\pi_1(y)
-	\end{matrix}
+    \overbrace{
+        \left.
+        \begin{bmatrix}
+            1\cdot 1       & (x-x_0)\cdot 1 \\
+            1\cdot (y-y_0) & (x-x_0)(y-y_0)
+        \end{bmatrix}
+        \right\}
+    }^{\begin{matrix}
+           \pi_0(x) & & & & \pi_1(x)
+    \end{matrix}}
+    \begin{matrix}
+        \pi_0(y) \\
+        \pi_1(y)
+    \end{matrix}
 \end{align*}
 
 and the polynomial
 \begin{align*}
-	p(x,y) = &\ a_{0,0}\pi_0(x)\pi_0(y)
-	+ a_{1,0}\pi_1(x)\pi_0(y) \\
-	\ & + a_{0,1}\pi_0(x)\pi_1(y)
-	+ a_{1,1}\pi_1(x)\pi_1(y)
+    p(x,y) = &\ a_{0,0}\pi_0(x)\pi_0(y)
+    + a_{1,0}\pi_1(x)\pi_0(y) \\
+    \ & + a_{0,1}\pi_0(x)\pi_1(y)
+    + a_{1,1}\pi_1(x)\pi_1(y)
 \end{align*}
 
-TODO
+Then, the computation proceeds using divided differences in all steps:
+\begin{enumerate}
+    \item{
+        Univariate interpolation for $x$ when holding $y=y_0$,
+        ignoring a y parameter
+        \begin{align*}
+            p(x,y_0) = p(x_0,y_0)\pi_0(x) + \frac{p(x_n,y_0) - p(x_0, y_0)}{x_n - x_0}\pi_1(x)
+        \end{align*}
+        using the measurements at $x_0$ and $x_n$.
+        We therefore receive a two-dimensional, univariate polynom
+    }
+    \item{
+        Univariate interpolation for $x$ when holding $y=y_n$:
+        \begin{align*}
+            p(x,x_n) = p(x_0,y_n)\pi_0(x) + \frac{p(x_n,y_n) - p(x_0, y_n)}{x_n - x_0}\pi_1(x)
+        \end{align*}
+        giving a second polynomial ``at the other edge''
+    }
+    \item{
+        Univariate interpolation for $y$:
+        \begin{align*}
+            p(x,y)=p(x,y_0)\pi_0(y)+\frac{p(x,y_1) - p(x,y_0)}{y_1-y_0}\pi_1(y)
+        \end{align*}
+        where we can substitute $p(x,y_1)$ and $p(x,y_0)$ with the above calculations
+    }
+\end{enumerate}

@@ -280,6 +280,7 @@ We can then implement the following algorithm:
                 We also increase the step size:
                 \begin{align*}
                     h_\text{next} = h_{i+1} = h_i\left(\frac{||e_i||}{\varepsilon}\right)^{-\frac{1}{\varrho}}
+                    {\color{gray} \geq h_i}
                 \end{align*}
                 with $\varrho = \min\{p, \hat{p}\} + 1$ (e.g. 2 for HE2(1))
             }
@@ -288,6 +289,7 @@ We can then implement the following algorithm:
                 We therefore repeat without increasing $i$ and reduce the step size:
                 \begin{align*}
                     h_\text{next} = h_i\left(\frac{||e_i||}{\varepsilon}\right)^{-\frac{1}{\varrho}}
+                    {\color{gray} < h_i}
                 \end{align*}
                 with $\varrho = \min\{p, \hat{p}\} + 1$ (e.g. 2 for HE2(1))
                 and $h_\text{next}$ being the step size for the next iteration.
@@ -296,6 +298,37 @@ We can then implement the following algorithm:
         \end{enumerate}
     }
 \end{enumerate}
+
+\paragraph{Heun-Euler 2(1) Method}
+
+Has the combined butcher tableau
+\begin{align*}
+    \begin{array}{c|cc}
+        0 & {\color{gray}0} & {\color{gray}0} \\
+        1 & 1 & {\color{gray}0} \\
+        \hline
+        & 1/2 & 1/2 \\
+        & 1 & 0
+    \end{array}
+\end{align*}
+
+With a single step for Heun:
+\begin{align*}
+    y_{k+1}\approx y_{k}+\frac{1}{2}h_{k}
+    \Biggl(
+        \underbrace{f(x_{k},y_{k})}_{\varpropto k_1}+\underbrace{f(x_{k}+h_{k},y_{k}+h_{k}f(x_{k},y_{k}))}_{\varpropto k_2}
+    \Biggr)
+\end{align*}
+and Euler:
+\begin{align*}
+    \hat{y}_{k+1} = y_k + f(x_k,y_k)h_k
+\end{align*}
+
+We also have a simple local error estimate in the form of $e_k = y_{k+1} - \hat{y}_{k+1}$
+which is for HE2(1):
+\begin{align*}
+    e_k = \frac{1}{2}h_k(k_2 - k_1)
+\end{align*}
 
 \subsection{Stability of Explicit Runge-Kutta Methods}
 
@@ -326,7 +359,7 @@ The Heun method is a Runge-Kutta method of order 2 with 2 stages:
     & y_{i+1}=y_{i}+{\frac{1}{2}}h\bigl(f(x_{i},y_{i})+f(x_{i}+h,y_{i}+h f(x_{i},y_{i}))\bigr)
 \end{align*}
 
-applied to Dahlquist test equation $y' = Ay$ {\color{gray}($f(x,y) = Ay$)}, the scheme becomes:
+applied to Dahlquist test equation \smallshade{$y' = Ay$} {\color{gray}($f(x,y) = Ay$)}, the scheme becomes:
 \begin{align*}
     y_0 & = y(0) = 1 \\
     y_{i+1} & = y_{i}+{\frac{1}{2}}h\bigl(Ay_{i}+A(y_i + hAy_i)\bigr) \\
@@ -359,7 +392,7 @@ Stiffness has a negative impact on the stability of a numerical scheme and enfor
 leading to high computational costs.
 
 To get a stiffness analysis in a simple, one-dimensional, explicit case, we substitute
-$A=\frac{\partial f}{\partial y}$ for the Dahlquist test equation $y'=Ay$.
+\smallshade{$A=\frac{\partial f}{\partial y}$} for the Dahlquist test equation $y'=Ay$.
 If we have a bad step size $h$ for a stiff problem then the numerical solution will be outside
 of the stability region and thus unstable.
 \\[1em]
